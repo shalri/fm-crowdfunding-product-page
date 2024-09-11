@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Commissioner } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const commissioner = Commissioner({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "きそ(kiso) | FScode",
@@ -17,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex min-h-screen flex-col antialiased scroll-smooth`}
+        className={`${commissioner.className} flex min-h-screen flex-col antialiased scroll-smooth`}
       >
         {children}
       </body>
