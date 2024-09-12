@@ -17,6 +17,10 @@ export const projectDetails = [
   {
     title: "Mastercraft Bamboo Monitor Riser",
     logo: "images/logo-mastercraft.svg",
+    bgImage: {
+      desktop: "/images/image-hero-desktop.jpg",
+      mobile: "/images/image-hero-mobile.jpg",
+    },
     description:
       "A beautiful & handcrafted monitor stand to reduce neck and eye strain.",
     currentFunding: 89914,
