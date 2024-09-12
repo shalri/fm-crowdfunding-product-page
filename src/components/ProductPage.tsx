@@ -86,6 +86,49 @@ export default function ProductPage({ title }: ProductPageProps) {
           </section>
         ))}
       </article>
+      {/* Modal Back Project */}
+      {/* TODO: extract this to its own component */}
+      <article className="">
+        <div className="">
+          <h2 className="">{project.modal.backThisProjectTitle}</h2>
+          <p className="">{project.modal.backThisProjectDescription}</p>
+        </div>
+        <div className="">
+          {project.rewards.map((reward) => (
+            <section
+              className={cn("", reward.isOutOfStock && "opacity-50")}
+              key={reward.title}
+            >
+              <div className="flex">
+                <h3 className="">{reward.title}</h3>
+                <p className="text-cp-moderate-cyan">
+                  Pledge ${reward.pledgeAmount} or more
+                </p>
+                <h4>
+                  <span className="font-bold">{reward.left}</span> left
+                </h4>
+              </div>
+              <p className="">{reward.description}</p>
+              <div className="flex">
+                <p className="">Enter your pledge</p>
+                <p className="">
+                  <span>$ </span>
+                  <span>{reward.pledgeAmount}</span>
+                </p>
+                <button className="bg-cp-moderate-cyan">Select Reward</button>
+              </div>
+            </section>
+          ))}
+        </div>
+      </article>
+      {/* Modal Success */}
+      {/* TODO: extract this to its own component */}
+      <article>
+        <div className="size-10 bg-[url(/images/icon-check.svg)] bg-contain bg-no-repeat" />
+        <h2 className="">Thanks for your support!</h2>
+        <p className="">{project.modal.successMessage}</p>
+        <button className="bg-cp-moderate-cyan">Got it!</button>
+      </article>
     </main>
   );
 }

@@ -65,7 +65,7 @@ Featuring artisan craftsmanship, the simplicity of design creates extra desk spa
         "Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email.",
       selectedPledgeTitle: "Enter your pledge",
       successMessage:
-        "Thanks for your support! Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get an email once our campaign is completed.",
+        "Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get an email once our campaign is completed.",
     },
   },
 ];
