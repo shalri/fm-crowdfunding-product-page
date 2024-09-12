@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Commissioner } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
 
 const commissioner = Commissioner({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body
         className={`${commissioner.className} flex min-h-screen flex-col antialiased scroll-smooth`}
       >
+        <Header />
         {children}
       </body>
     </html>
