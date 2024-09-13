@@ -24,12 +24,12 @@ body {
   font-family: (var(--font-family-commissioner));
   font-size: 16px;
 }
+.no-scroll {
+  overflow: hidden;
+}
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-  .no-scroll {
-    overflow: hidden;
   }
 }

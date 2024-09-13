@@ -19,7 +19,6 @@ export default function ProductPage({ title }: ProductPageProps) {
     return "Project not found";
   }
 
-  // const { title, description, currentFunding, logo, targetFunding } = project;
   function ProgressBar({
     currentFunding,
     targetFunding,
@@ -66,7 +65,7 @@ export default function ProductPage({ title }: ProductPageProps) {
           {project.description}
         </p>
         <div className="flex mt-6 w-full justify-between gap-x-2 max-w-[280px] mx-auto">
-          <button className="bg-cp-moderate-cyan px-[46px] flex-shrink-0 py-4 font-bold text-white rounded-full">
+          <button className="bg-cp-moderate-cyan px-[46px] flex-shrink-0 py-4 font-semi-bold text-white rounded-full">
             Back this project
           </button>
           <button
@@ -125,7 +124,7 @@ export default function ProductPage({ title }: ProductPageProps) {
           >
             <div className="flex flex-col text-sm">
               <h3 className="font-bold">{reward.title}</h3>
-              <p className="mt-[6px] text-cp-moderate-cyan">
+              <p className="mt-[6px] font-semi-bold text-cp-moderate-cyan">
                 Pledge ${reward.pledgeAmount} or more
               </p>
             </div>
@@ -143,7 +142,7 @@ export default function ProductPage({ title }: ProductPageProps) {
             </div>
             <button
               className={cn(
-                "bg-cp-moderate-cyan inline-block px-[32px] mt-6 py-[14px] font-bold text-sm text-white rounded-full",
+                "bg-cp-moderate-cyan inline-block px-[32px] mt-6 py-[14px] font-semi-bold text-sm text-white rounded-full",
                 reward.isOutOfStock && "bg-gray-400 cursor-not-allowed",
               )}
               disabled={reward.isOutOfStock}

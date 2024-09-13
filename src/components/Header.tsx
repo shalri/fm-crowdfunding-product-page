@@ -4,8 +4,9 @@ import Link from "next/link";
 import { navLinks } from "@/libs/data";
 import { useMobileNav } from "@/hooks/useMobileNavigation";
 import { useSmallScreen } from "@/hooks/useSmallScreen";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { cn } from "@/libs/utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 function Logo() {
   return (
@@ -15,7 +16,7 @@ function Logo() {
           src="/images/logo.svg"
           alt="crowdfund logo"
           fill
-          className="object-contain"
+          className="object-contain z-20"
         />
       </Link>
     </div>
@@ -24,10 +25,16 @@ function Logo() {
 
 function NavContent() {
   return (
-    <ul className="">
+    <ul className="flex flex-col divide-y divide-gray-200 gap-y-[22px]">
       {navLinks.map((link) => (
-        <li className="" key={link.label}>
-          <Link href={link.href}>{link.label}</Link>
+        // {/* <li className="px-6 py-4 first:pt-5 first:pb-5" key={link.label}> */}
+        <li className="px-6 pt-[20px] last:pb-6" key={link.label}>
+          <Link
+            href={link.href}
+            className="text-lg font-semi-bold text-cp-black"
+          >
+            {link.label}
+          </Link>
         </li>
       ))}
     </ul>
@@ -44,8 +51,8 @@ function MenuButton({
   return (
     <button
       className={cn(
-        "size-4 bg-[url(/images/icon-hamburger.svg)] bg-no-repeat",
-        isMobileNavActive && "bg-[url(/images/icon-close-menu.svg)]",
+        "size-4 bg-[url(/images/icon-hamburger.svg)] bg-no-repeat sm:hidden",
+        isMobileNavActive && "bg-[url(/images/icon-close-menu.svg)] z-20",
       )}
       aria-label="Open Menu"
       onClick={toggleMobileNav}
@@ -57,20 +64,58 @@ export default function Header() {
   const isSmallScreen = useSmallScreen();
   const navRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { isMobileNavActive, toggleMobileNav, closeMobileNav } = useMobileNav(
+  const { isMobileNavActive, toggleMobileNav } = useMobileNav(
     navRef,
     isSmallScreen,
   );
+  const mobileAnimationWrapper = useCallback(
+    (children: React.ReactNode) => {
+      return (
+        <AnimatePresence>
+          {isMobileNavActive && (
+            <motion.div
+              layout
+              key="mobile-nav"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ height: 0 }}
+              className="z-50 fixed bg-white right-6 left-6 top-[88px] rounded-lg overflow-hidden"
+            >
+              {children}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      );
+    },
+    [isMobileNavActive],
+  );
+
   return (
-    <header className="w-full pt-[26px] absolute px-6 flex items-center justify-between">
-      <Logo />
-      <nav className="hidden">
-        <NavContent />
-      </nav>
-      <MenuButton
-        isMobileNavActive={isMobileNavActive}
-        toggleMobileNav={toggleMobileNav}
-      />
-    </header>
+    <>
+      <AnimatePresence>
+        {isMobileNavActive && isSmallScreen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-10"
+          />
+        )}
+      </AnimatePresence>
+      <header className="w-full pt-[26px] absolute px-6 flex items-center justify-between">
+        <Logo />
+        <nav className="relative" ref={navRef}>
+          {isSmallScreen ? (
+            mobileAnimationWrapper(<NavContent />)
+          ) : (
+            <NavContent />
+          )}
+        </nav>
+        <MenuButton
+          isMobileNavActive={isMobileNavActive}
+          toggleMobileNav={toggleMobileNav}
+        />
+      </header>
+    </>
   );
 }
