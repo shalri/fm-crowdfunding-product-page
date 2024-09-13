@@ -1,15 +1,15 @@
 export const navLinks = [
   {
     label: "About",
-    href: "#",
+    href: "/",
   },
   {
     label: "Discover",
-    href: "#",
+    href: "/",
   },
   {
     label: "Get Started",
-    href: "#",
+    href: "/",
   },
 ];
 

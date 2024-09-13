@@ -23,15 +23,19 @@ function Logo() {
   );
 }
 
-function NavContent() {
+function NavContent({
+  handleLinkClink,
+}: {
+  handleLinkClink: (e: React.MouseEvent) => void;
+}) {
   return (
     <ul className="flex flex-col divide-y divide-gray-200 gap-y-[22px]">
       {navLinks.map((link) => (
-        // {/* <li className="px-6 py-4 first:pt-5 first:pb-5" key={link.label}> */}
         <li className="px-6 pt-[20px] last:pb-6" key={link.label}>
           <Link
             href={link.href}
             className="text-lg font-semi-bold text-cp-black"
+            onClick={handleLinkClink}
           >
             {link.label}
           </Link>
@@ -64,7 +68,7 @@ export default function Header() {
   const isSmallScreen = useSmallScreen();
   const navRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { isMobileNavActive, toggleMobileNav } = useMobileNav(
+  const { isMobileNavActive, toggleMobileNav, closeMobileNav } = useMobileNav(
     navRef,
     isSmallScreen,
   );
@@ -90,6 +94,12 @@ export default function Header() {
     [isMobileNavActive],
   );
 
+  const handleLinkClink = () => {
+    if (isSmallScreen) {
+      closeMobileNav();
+    }
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -106,9 +116,11 @@ export default function Header() {
         <Logo />
         <nav className="relative" ref={navRef}>
           {isSmallScreen ? (
-            mobileAnimationWrapper(<NavContent />)
+            mobileAnimationWrapper(
+              <NavContent handleLinkClink={handleLinkClink} />,
+            )
           ) : (
-            <NavContent />
+            <NavContent handleLinkClink={handleLinkClink} />
           )}
         </nav>
         <MenuButton
