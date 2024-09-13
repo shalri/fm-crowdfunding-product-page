@@ -33,7 +33,8 @@ function NavContent() {
     </ul>
   );
 }
-function NavMenuButton({
+
+function MenuButton({
   isMobileNavActive,
   toggleMobileNav,
 }: {
@@ -55,6 +56,7 @@ function NavMenuButton({
 export default function Header() {
   const isSmallScreen = useSmallScreen();
   const navRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isMobileNavActive, toggleMobileNav, closeMobileNav } = useMobileNav(
     navRef,
     isSmallScreen,
@@ -65,7 +67,7 @@ export default function Header() {
       <nav className="hidden">
         <NavContent />
       </nav>
-      <NavMenuButton
+      <MenuButton
         isMobileNavActive={isMobileNavActive}
         toggleMobileNav={toggleMobileNav}
       />

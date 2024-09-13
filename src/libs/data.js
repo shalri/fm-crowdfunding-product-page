@@ -22,7 +22,7 @@ export const projectDetails = [
       mobile: "/images/image-hero-mobile.jpg",
     },
     description:
-      "A beautiful & handcrafted monitor stand to reduce neck and eye strain.",
+      "A beautifully handcrafted monitor stand to reduce neck and eye strain.",
     currentFunding: 89914,
     targetFunding: 100000,
     totalBackers: 5007,
