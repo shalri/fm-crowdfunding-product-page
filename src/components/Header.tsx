@@ -67,7 +67,6 @@ function MenuButton({
 export default function Header() {
   const isSmallScreen = useSmallScreen();
   const navRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isMobileNavActive, toggleMobileNav, closeMobileNav } = useMobileNav(
     navRef,
     isSmallScreen,
@@ -105,6 +104,7 @@ export default function Header() {
       <AnimatePresence>
         {isMobileNavActive && isSmallScreen && (
           <motion.div
+            key={"mobileNav"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -112,7 +112,7 @@ export default function Header() {
           />
         )}
       </AnimatePresence>
-      <header className="w-full pt-[26px] absolute px-6 flex items-center justify-between">
+      <header className="w-full pt-[26px] z-50 absolute px-6 flex items-center justify-between">
         <Logo />
         <nav className="relative" ref={navRef}>
           {isSmallScreen ? (
