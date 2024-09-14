@@ -56,7 +56,7 @@ function MenuButton({
     <button
       className={cn(
         "size-4 bg-[url(/images/icon-hamburger.svg)] bg-no-repeat sm:hidden",
-        isMobileNavActive && "bg-[url(/images/icon-close-menu.svg)] z-20",
+        isMobileNavActive && "bg-[url(/images/icon-close-menu.svg)] z-50",
       )}
       aria-label="Open Menu"
       onClick={toggleMobileNav}
@@ -112,7 +112,7 @@ export default function Header() {
           />
         )}
       </AnimatePresence>
-      <header className="w-full pt-[26px] z-50 absolute px-6 flex items-center justify-between">
+      <header className="w-full pt-[26px] absolute px-6 flex items-center justify-between">
         <Logo />
         <nav className="relative" ref={navRef}>
           {isSmallScreen ? (

@@ -1,12 +1,12 @@
 "use client";
-import { useSmallScreen } from "@/hooks/useSmallScreen";
-import { projectDetails } from "@/libs/data";
-import { cn } from "@/libs/utils";
 // import SuccessModal from "./SuccessModal";
 import BackProjectModal from "./BackProjectModal";
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import useOutSideClick from "@/hooks/useOutsideClick";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/libs/utils";
+import { projectDetails } from "@/libs/data";
+import { useEffect, useRef, useState } from "react";
+import { useSmallScreen } from "@/hooks/useSmallScreen";
 
 type ProductPageProps = {
   title: string;
@@ -16,6 +16,7 @@ export default function ProductPage({ title }: ProductPageProps) {
   const backProjectRef = useRef<HTMLDivElement>(null);
   const isSmallScreen = useSmallScreen();
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [selectedReward, setSelectedReward] = useState<string | null>(null);
   // TODO: change to false
   const [isModalBackProjectActive, setIsModalBackProjectActive] =
     useState(true); // code layout mode
@@ -68,6 +69,13 @@ export default function ProductPage({ title }: ProductPageProps) {
     setIsModalBackProjectActive((prev) => !prev);
   };
 
+  const handleSelectReward = (rewardTitle: string | null) => {
+    if (rewardTitle === null) {
+      setIsModalBackProjectActive(false);
+    }
+    setSelectedReward(rewardTitle);
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -78,6 +86,7 @@ export default function ProductPage({ title }: ProductPageProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            className="fixed flex z-30"
           >
             <BackProjectModal
               isActive={isModalBackProjectActive}
@@ -85,6 +94,10 @@ export default function ProductPage({ title }: ProductPageProps) {
               title={project.modal.backThisProjectTitle}
               description={project.modal.backThisProjectDescription}
               rewards={project.rewards}
+              noRewardTitle={project.modal.noRewardTitle}
+              noRewardDescription={project.modal.noRewardDescription}
+              selectedReward={selectedReward}
+              selectReward={handleSelectReward}
             />
           </motion.div>
         )}
