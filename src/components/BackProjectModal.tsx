@@ -65,7 +65,7 @@ export default function BackProjectModal({
             className={cn(
               "block rounded-lg border-2 border-cp-dark-gray/50 px-6 py-[30px] relative",
               selectedReward === "no-reward" &&
-              "border-2 border-cp-moderate-cyan",
+                "border-2 border-cp-moderate-cyan",
             )}
           >
             <input
@@ -99,7 +99,7 @@ export default function BackProjectModal({
                 "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative",
                 reward.isOutOfStock && "opacity-50",
                 selectedReward === reward.title &&
-                "border-2 border-cp-moderate-cyan",
+                  "border-2 border-cp-moderate-cyan",
               )}
               key={reward.title}
             >
@@ -112,14 +112,13 @@ export default function BackProjectModal({
                 disabled={reward.isOutOfStock}
                 className="absolute opacity-0"
               />
-              {/* header rewards */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div
                     className={cn(
                       "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
                       selectedReward === reward.title &&
-                      "border-cp-moderate-cyan",
+                        "border-cp-moderate-cyan",
                     )}
                   >
                     {selectedReward === reward.title && (
@@ -148,17 +147,30 @@ export default function BackProjectModal({
                 </span>
               </h4>
               {selectedReward === reward.title && (
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-cp-dark-gray/20">
-                  <p className="text-sm text-cp-dark-gray">Enter your pledge</p>
-                  <div className="flex items-center">
-                    <span className="text-sm mr-2">$</span>
-                    <input
-                      type="number"
-                      defaultValue={reward.pledgeAmount}
-                      min={reward.pledgeAmount}
-                      className="w-20 px-3 py-1 border rounded-full text-center"
-                    />
-                    <button className="ml-4 bg-cp-moderate-cyan text-white px-6 py-2 rounded-full text-sm">
+                <div className="grid grid-cols-2 mt-6 pt-6 border-t border-cp-dark-gray/20">
+                  <p className="cols-start-1 pb-4 text-sm text-cp-dark-gray w-full text-center row-start-1 col-span-2">
+                    Enter your pledge
+                  </p>
+                  <div className="grid grid-cols-2 col-span-2 row-start-2">
+                    <div className="col-span-1 relative">
+                      <span className="text-sm mr-2 absolute top-[14px] left-5 text-cp-dark-gray">
+                        $
+                      </span>
+                      <input
+                        type="number"
+                        defaultValue={reward.pledgeAmount}
+                        min={reward.pledgeAmount}
+                        max={1000}
+                        className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-cp-dark-gray/50 rounded-full text-center"
+                        onInput={(e) => {
+                          const input = e.target as HTMLInputElement;
+                          if (input.value.length > 4) {
+                            input.value = input.value.slice(0, 4); // Limit to 4 digits
+                          }
+                        }}
+                      />
+                    </div>
+                    <button className="col-span-1 bg-cp-moderate-cyan text-white px-6 py-[14px] rounded-full text-sm">
                       Continue
                     </button>
                   </div>
