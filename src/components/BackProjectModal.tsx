@@ -61,7 +61,13 @@ export default function BackProjectModal({
           </p>
         </div>
         <div className="space-y-6">
-          <label className="block rounded-lg border border-cp-dark-gray/50 px-6 py-6 relative">
+          <label
+            className={cn(
+              "block rounded-lg border-2 border-cp-dark-gray/50 px-6 py-8 relative",
+              selectedReward === "no-reward" &&
+              "border-2 border-cp-moderate-cyan",
+            )}
+          >
             <input
               type="radio"
               name="reward"
@@ -83,15 +89,17 @@ export default function BackProjectModal({
               </div>
               <h3 className="text-sm font-bold ml-4">{noRewardTitle}</h3>
             </div>
-            <p className="text-sm mt-2 text-cp-dark-gray">
+            <p className="text-sm mt-8 leading-[1.725] text-cp-dark-gray">
               {noRewardDescription}
             </p>
           </label>
           {rewards.map((reward) => (
             <label
               className={cn(
-                "block rounded-lg border border-cp-dark-gray/50 px-6 py-6 relative",
+                "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative",
                 reward.isOutOfStock && "opacity-50",
+                selectedReward === reward.title &&
+                "border-2 border-cp-moderate-cyan",
               )}
               key={reward.title}
             >
@@ -104,13 +112,14 @@ export default function BackProjectModal({
                 disabled={reward.isOutOfStock}
                 className="absolute opacity-0"
               />
+              {/* header rewards */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div
                     className={cn(
                       "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
                       selectedReward === reward.title &&
-                        "border-cp-moderate-cyan",
+                      "border-cp-moderate-cyan",
                     )}
                   >
                     {selectedReward === reward.title && (
@@ -119,18 +128,25 @@ export default function BackProjectModal({
                   </div>
                   <div className="ml-4">
                     <h3 className="text-sm font-bold">{reward.title}</h3>
-                    <p className="text-cp-moderate-cyan text-sm">
+                    <p className="mt-1 text-cp-moderate-cyan text-sm">
                       Pledge ${reward.pledgeAmount} or more
                     </p>
                   </div>
                 </div>
-                <h4 className="text-sm">
+                <h4 className="text-sm hidden sm:inline-block">
                   <span className="font-bold">{reward.left}</span> left
                 </h4>
               </div>
-              <p className="text-sm mt-2 text-cp-dark-gray">
+              <p className="text-sm mt-6 leading-[1.725] text-cp-dark-gray">
                 {reward.description}
               </p>
+              <h4 className="mt-5 sm:hidden font-bold text-lg text-cp-black">
+                {reward.left}{" "}
+                <span className="text-[15px] ml-1 font-normal text-cp-dark-gray">
+                  {" "}
+                  left
+                </span>
+              </h4>
               {selectedReward === reward.title && (
                 <div className="flex items-center justify-between mt-4 pt-4 border-t border-cp-dark-gray/20">
                   <p className="text-sm text-cp-dark-gray">Enter your pledge</p>
