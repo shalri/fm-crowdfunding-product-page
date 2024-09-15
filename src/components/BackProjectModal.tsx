@@ -1,4 +1,6 @@
+import useOutSideClick from "@/hooks/useOutsideClick";
 import { cn } from "@/libs/utils";
+import { useRef } from "react";
 
 interface Reward {
   description: string;
@@ -31,11 +33,20 @@ export default function BackProjectModal({
   selectedReward,
   title,
 }: BackProjectModalProps) {
+  const backProjectRef = useRef<HTMLDivElement | null>(null);
+
+  useOutSideClick(backProjectRef, () => {
+    onClose();
+  });
+
   if (!isActive) return null;
 
   return (
     <div className="fixed px-6 py-[120px] overflow-y-auto inset-0 bg-black/50 z-40 sm:flex items-center">
-      <article className="rounded-lg bg-white px-6 flex-grow py-[30px] z-50 max-w-[730px] mx-auto">
+      <article
+        ref={backProjectRef}
+        className="rounded-lg bg-white px-6 flex-grow py-[30px] z-50 max-w-[730px] mx-auto"
+      >
         <div className="mb-6">
           <div className="flex justify-between items-baseline">
             <h2 className="font-bold text-lg text-cp-black">{title}</h2>
@@ -99,7 +110,7 @@ export default function BackProjectModal({
                     className={cn(
                       "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
                       selectedReward === reward.title &&
-                      "border-cp-moderate-cyan",
+                        "border-cp-moderate-cyan",
                     )}
                   >
                     {selectedReward === reward.title && (

@@ -1,11 +1,9 @@
 "use client";
-// import SuccessModal from "./SuccessModal";
 import BackProjectModal from "./BackProjectModal";
-import useOutSideClick from "@/hooks/useOutsideClick";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/libs/utils";
 import { projectDetails } from "@/libs/data";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSmallScreen } from "@/hooks/useSmallScreen";
 
 type ProductPageProps = {
@@ -13,7 +11,6 @@ type ProductPageProps = {
 };
 
 export default function ProductPage({ title }: ProductPageProps) {
-  const backProjectRef = useRef<HTMLDivElement>(null);
   const isSmallScreen = useSmallScreen();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [selectedReward, setSelectedReward] = useState<string | null>(null);
@@ -23,8 +20,6 @@ export default function ProductPage({ title }: ProductPageProps) {
   const project = projectDetails.find(
     (project) => project.title?.toLowerCase() === title.toLowerCase(),
   );
-
-  useOutSideClick(backProjectRef, () => setIsModalBackProjectActive(false));
 
   useEffect(() => {
     const updateBodyClass = () => {
@@ -81,7 +76,6 @@ export default function ProductPage({ title }: ProductPageProps) {
       <AnimatePresence>
         {isModalBackProjectActive && (
           <motion.div
-            ref={backProjectRef}
             key="backProjectModal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
