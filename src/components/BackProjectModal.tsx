@@ -63,7 +63,7 @@ export default function BackProjectModal({
         <div className="space-y-6">
           <label
             className={cn(
-              "block rounded-lg border-2 border-cp-dark-gray/50 px-6 py-8 relative",
+              "block rounded-lg border-2 border-cp-dark-gray/50 px-6 py-[30px] relative",
               selectedReward === "no-reward" &&
               "border-2 border-cp-moderate-cyan",
             )}

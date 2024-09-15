@@ -69,6 +69,7 @@ export default function ProductPage({ title }: ProductPageProps) {
       setIsModalBackProjectActive(false);
     }
     setSelectedReward(rewardTitle);
+    setIsModalBackProjectActive(true);
   };
 
   return (
@@ -84,7 +85,10 @@ export default function ProductPage({ title }: ProductPageProps) {
           >
             <BackProjectModal
               isActive={isModalBackProjectActive}
-              onClose={() => setIsModalBackProjectActive(false)}
+              onClose={() => {
+                setIsModalBackProjectActive(false);
+                setSelectedReward(null);
+              }}
               title={project.modal.backThisProjectTitle}
               description={project.modal.backThisProjectDescription}
               rewards={project.rewards}
@@ -211,7 +215,8 @@ export default function ProductPage({ title }: ProductPageProps) {
                   reward.isOutOfStock && "bg-gray-400 cursor-not-allowed",
                 )}
                 disabled={reward.isOutOfStock}
-                onClick={handleBackProjectModal}
+                // onClick={handleBackProjectModal}
+                onClick={() => handleSelectReward(reward.title)}
               >
                 Select Reward
               </button>
