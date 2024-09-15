@@ -1,5 +1,6 @@
 import useOutSideClick from "@/hooks/useOutsideClick";
 import { cn } from "@/libs/utils";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRef } from "react";
 
 interface Reward {
@@ -94,7 +95,7 @@ export default function BackProjectModal({
             </p>
           </label>
           {rewards.map((reward) => (
-            <label
+            <motion.label
               className={cn(
                 "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative",
                 reward.isOutOfStock && "opacity-50",
@@ -146,37 +147,54 @@ export default function BackProjectModal({
                   left
                 </span>
               </h4>
-              {selectedReward === reward.title && (
-                <div className="grid grid-cols-2 mt-6 pt-6 border-t border-cp-dark-gray/20">
-                  <p className="cols-start-1 pb-4 text-sm text-cp-dark-gray w-full text-center row-start-1 col-span-2">
-                    Enter your pledge
-                  </p>
-                  <div className="grid grid-cols-2 col-span-2 row-start-2">
-                    <div className="col-span-1 relative">
-                      <span className="text-sm mr-2 absolute top-[14px] left-5 text-cp-dark-gray">
-                        $
-                      </span>
-                      <input
-                        type="number"
-                        defaultValue={reward.pledgeAmount}
-                        min={reward.pledgeAmount}
-                        max={1000}
-                        className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-cp-dark-gray/50 rounded-full text-center"
-                        onInput={(e) => {
-                          const input = e.target as HTMLInputElement;
-                          if (input.value.length > 4) {
-                            input.value = input.value.slice(0, 4); // Limit to 4 digits
-                          }
-                        }}
-                      />
+              <AnimatePresence>
+                {selectedReward === reward.title && (
+                  <motion.div
+                    layout
+                    // key={reward.title}
+                    initial="collapse"
+                    animate="open"
+                    exit="collapse"
+                    variants={{
+                      open: { opacity: 1, height: "auto" },
+                      collapse: { opacity: 0, height: 0 },
+                    }}
+                    transition={{
+                      duration: 0.075,
+                      // ease: [0.04, 0.62, 0.23, 0.98],
+                    }}
+                    className="grid grid-cols-2 mt-6 pt-6 border-t border-cp-dark-gray/20 overflow-hidden"
+                  >
+                    <p className="cols-start-1 pb-4 text-sm text-cp-dark-gray w-full text-center row-start-1 col-span-2">
+                      Enter your pledge
+                    </p>
+                    <div className="grid grid-cols-2 col-span-2 row-start-2">
+                      <div className="col-span-1 relative">
+                        <span className="text-sm mr-2 absolute top-[14px] left-5 text-cp-dark-gray">
+                          $
+                        </span>
+                        <input
+                          type="number"
+                          defaultValue={reward.pledgeAmount}
+                          min={reward.pledgeAmount}
+                          max={1000}
+                          className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-cp-dark-gray/50 rounded-full text-center"
+                          onInput={(e) => {
+                            const input = e.target as HTMLInputElement;
+                            if (input.value.length > 4) {
+                              input.value = input.value.slice(0, 4); // Limit to 4 digits
+                            }
+                          }}
+                        />
+                      </div>
+                      <button className="col-span-1 bg-cp-moderate-cyan text-white px-6 py-[14px] rounded-full text-sm">
+                        Continue
+                      </button>
                     </div>
-                    <button className="col-span-1 bg-cp-moderate-cyan text-white px-6 py-[14px] rounded-full text-sm">
-                      Continue
-                    </button>
-                  </div>
-                </div>
-              )}
-            </label>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.label>
           ))}
         </div>
       </article>
