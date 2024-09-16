@@ -69,3 +69,10 @@ Featuring artisan craftsmanship, the simplicity of design creates extra desk spa
     },
   },
 ];
+
+export const thankYouModal = {
+  h1: "Thanks for your support!",
+  bodyCopy:
+    "Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get an email once our campaign is completed.",
+  buttonCopy: "Got it!",
+};

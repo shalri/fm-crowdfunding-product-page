@@ -1,14 +1,22 @@
+import { thankYouModal } from "@/libs/data";
+
 interface SuccessModalProps {
-  successMessage: string;
+  isActive: boolean;
+  onClose: () => void;
 }
 
-export default function SuccessModal({ successMessage }: SuccessModalProps) {
+export default function SuccessModal({ isActive, onClose }: SuccessModalProps) {
+  if (!isActive) {
+    return null;
+  }
   return (
     <article>
       <div className="size-10 bg-[url(/images/icon-check.svg)] bg-contain bg-no-repeat" />
-      <h2 className="">Thanks for your support!</h2>
-      <p className="">{successMessage}</p>
-      <button className="bg-cp-moderate-cyan">Got it!</button>
+      <h1 className="">{thankYouModal.h1}</h1>
+      <p className="">{thankYouModal.bodyCopy}</p>
+      <button onClick={onClose} className="bg-cp-moderate-cyan">
+        Got it!
+      </button>
     </article>
   );
 }
