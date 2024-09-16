@@ -14,9 +14,8 @@ export default function ProductPage({ title }: ProductPageProps) {
   const isSmallScreen = useSmallScreen();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [selectedReward, setSelectedReward] = useState<string | null>(null);
-  // TODO: change to false
   const [isModalBackProjectActive, setIsModalBackProjectActive] =
-    useState(true); // code layout mode
+    useState(false);
   const project = projectDetails.find(
     (project) => project.title?.toLowerCase() === title.toLowerCase(),
   );
@@ -77,7 +76,7 @@ export default function ProductPage({ title }: ProductPageProps) {
       <AnimatePresence>
         {isModalBackProjectActive && (
           <motion.div
-            key="backProjectModal"
+            key="back-project-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

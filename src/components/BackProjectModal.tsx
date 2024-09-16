@@ -32,6 +32,7 @@ export default function BackProjectModal({
   title,
 }: BackProjectModalProps) {
   const [isThankYouModalActive, setIsThankYouModalActive] = useState(false);
+  const [isThankYouConfirmed, setIsThankYouConfirmed] = useState(false);
   const backProjectRef = useRef<HTMLDivElement | null>(null);
 
   useOutSideClick(backProjectRef, () => {
@@ -45,7 +46,10 @@ export default function BackProjectModal({
       {!isThankYouModalActive ? (
         <article
           ref={backProjectRef}
-          className="rounded-lg bg-white px-6 flex-grow py-[30px] z-50 max-w-[730px] mx-auto"
+          className={cn(
+            "rounded-lg bg-white px-6 flex-grow py-[30px] z-50 max-w-[730px] mx-auto",
+            isThankYouConfirmed && "hidden",
+          )}
         >
           <div className="mb-6">
             <div className="flex justify-between items-baseline">
@@ -165,7 +169,10 @@ export default function BackProjectModal({
                           )}
                         </div>
                         <button
-                          onClick={() => setIsThankYouModalActive(true)}
+                          onClick={() => {
+                            setIsThankYouModalActive(true);
+                            setIsThankYouConfirmed(true);
+                          }}
                           className="col-span-1 bg-cp-moderate-cyan text-white px-6 py-[14px] rounded-full text-sm"
                         >
                           Continue
@@ -179,15 +186,23 @@ export default function BackProjectModal({
           </div>
         </article>
       ) : (
-        <div className="flex-grow items-center justify-center">
-          <ThankYouModal
-            onClose={() => {
-              setIsThankYouModalActive(false);
-              onClose();
-            }}
-            isActive={isThankYouModalActive}
-          />
-        </div>
+        <AnimatePresence>
+          <motion.div
+            key="thankyou-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex-grow items-center justify-center"
+          >
+            <ThankYouModal
+              onClose={() => {
+                setIsThankYouModalActive(false);
+                onClose();
+              }}
+              isActive={isThankYouModalActive}
+            />
+          </motion.div>
+        </AnimatePresence>
       )}
     </div>
   );
