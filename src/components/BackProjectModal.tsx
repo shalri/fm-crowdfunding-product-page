@@ -179,13 +179,15 @@ export default function BackProjectModal({
           </div>
         </article>
       ) : (
-        <ThankYouModal
-          onClose={() => {
-            setIsThankYouModalActive(false);
-            onClose();
-          }}
-          isActive={isThankYouModalActive}
-        />
+        <div className="flex-grow items-center justify-center">
+          <ThankYouModal
+            onClose={() => {
+              setIsThankYouModalActive(false);
+              onClose();
+            }}
+            isActive={isThankYouModalActive}
+          />
+        </div>
       )}
     </div>
   );

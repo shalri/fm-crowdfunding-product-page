@@ -20,11 +20,21 @@ export default function ThankYouModal({
   }
 
   return (
-    <article ref={thankYouRef}>
-      <div className="size-10 bg-[url(/images/icon-check.svg)] bg-contain bg-no-repeat" />
-      <h1 className="">{thankYouModal.h1}</h1>
-      <p className="">{thankYouModal.bodyCopy}</p>
-      <button onClick={onClose} className="bg-cp-moderate-cyan">
+    <article
+      ref={thankYouRef}
+      className="flex flex-col items-center justify-center pt-8 px-6 pb-10 bg-white rounded-xl shadow-3xl self-center mt-6"
+    >
+      <div className="size-16 bg-[url(/images/icon-check.svg)] bg-contain bg-no-repeat" />
+      <h1 className="text-cp-black font-bold text-lg mt-5">
+        {thankYouModal.h1}
+      </h1>
+      <p className="mt-[22px] text-sm text-center leading-[1.725] text-cp-dark-gray w-full">
+        {thankYouModal.bodyCopy}
+      </p>
+      <button
+        onClick={onClose}
+        className="mt-[30px] font-semibold text-white py-[14px] rounded-full px-8 text-sm bg-cp-moderate-cyan"
+      >
         Got it!
       </button>
     </article>
