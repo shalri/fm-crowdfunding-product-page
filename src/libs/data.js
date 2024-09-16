@@ -32,6 +32,14 @@ export const projectDetails = [
 Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer to allow notepads, pens, and USB sticks to be stored under the stand.`,
     rewards: [
       {
+        title: "Pledge with no reward",
+        pledgeAmount: 0,
+        description:
+          "Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product-related communications.",
+        left: 0,
+        isOutOfStock: false,
+      },
+      {
         title: "Bamboo Stand",
         pledgeAmount: 25,
         description:

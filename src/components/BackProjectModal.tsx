@@ -2,7 +2,7 @@ import useOutSideClick from "@/hooks/useOutsideClick";
 import { cn } from "@/libs/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
-import SuccessModal from "./SuccessModal";
+import ThankYouModal from "./ThankYouModal";
 
 interface Reward {
   description: string;
@@ -15,8 +15,6 @@ interface Reward {
 interface BackProjectModalProps {
   description: string;
   isActive: boolean;
-  noRewardDescription: string;
-  noRewardTitle: string;
   onClose: () => void;
   rewards: Reward[];
   selectReward: (rewardTitle: string | null) => void;
@@ -27,8 +25,6 @@ interface BackProjectModalProps {
 export default function BackProjectModal({
   description,
   isActive,
-  noRewardDescription,
-  noRewardTitle,
   onClose,
   rewards,
   selectReward,
@@ -65,38 +61,6 @@ export default function BackProjectModal({
             </p>
           </div>
           <div className="space-y-6">
-            <label
-              className={cn(
-                "block rounded-lg border-2 border-cp-dark-gray/50 px-6 py-[30px] relative",
-                selectedReward === "no-reward" &&
-                "border-2 border-cp-moderate-cyan",
-              )}
-            >
-              <input
-                type="radio"
-                name="reward"
-                value="no-reward"
-                checked={selectedReward === "no-reward"}
-                onChange={() => selectReward("no-reward")}
-                className="absolute opacity-0"
-              />
-              <div className="flex items-center">
-                <div
-                  className={cn(
-                    "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
-                    selectedReward === "no-reward" && "border-cp-moderate-cyan",
-                  )}
-                >
-                  {selectedReward === "no-reward" && (
-                    <div className="w-3 h-3 bg-cp-moderate-cyan rounded-full" />
-                  )}
-                </div>
-                <h3 className="text-sm font-bold ml-4">{noRewardTitle}</h3>
-              </div>
-              <p className="text-sm mt-8 leading-[1.725] text-cp-dark-gray">
-                {noRewardDescription}
-              </p>
-            </label>
             {rewards.map((reward) => (
               <motion.label
                 className={cn(
@@ -131,9 +95,11 @@ export default function BackProjectModal({
                     </div>
                     <div className="ml-4">
                       <h3 className="text-sm font-bold">{reward.title}</h3>
-                      <p className="mt-1 text-cp-moderate-cyan text-sm">
-                        Pledge ${reward.pledgeAmount} or more
-                      </p>
+                      {reward.title === "Pledge with no reward" ? null : (
+                        <p className="mt-1 text-cp-moderate-cyan text-sm">
+                          Pledge ${reward.pledgeAmount} or more
+                        </p>
+                      )}
                     </div>
                   </div>
                   <h4 className="text-sm hidden sm:inline-block">
@@ -143,13 +109,15 @@ export default function BackProjectModal({
                 <p className="text-sm mt-6 leading-[1.725] text-cp-dark-gray">
                   {reward.description}
                 </p>
-                <h4 className="mt-5 sm:hidden font-bold text-lg text-cp-black">
-                  {reward.left}{" "}
-                  <span className="text-[15px] ml-1 font-normal text-cp-dark-gray">
-                    {" "}
-                    left
-                  </span>
-                </h4>
+                {reward.title === "Pledge with no reward" ? null : (
+                  <h4 className="mt-5 sm:hidden font-bold text-lg text-cp-black">
+                    {reward.left}{" "}
+                    <span className="text-[15px] ml-1 font-normal text-cp-dark-gray">
+                      {" "}
+                      left
+                    </span>
+                  </h4>
+                )}
                 <AnimatePresence>
                   {selectedReward === reward.title && (
                     <motion.div
@@ -168,27 +136,33 @@ export default function BackProjectModal({
                       }}
                       className="grid grid-cols-2 mt-6 pt-6 border-t border-cp-dark-gray/20 overflow-hidden"
                     >
-                      <p className="cols-start-1 pb-4 text-sm text-cp-dark-gray w-full text-center row-start-1 col-span-2">
-                        Enter your pledge
-                      </p>
+                      {reward.title === "Pledge with no reward" ? null : (
+                        <p className="cols-start-1 pb-4 text-sm text-cp-dark-gray w-full text-center row-start-1 col-span-2">
+                          Enter your pledge
+                        </p>
+                      )}
                       <div className="grid grid-cols-2 col-span-2 row-start-2">
                         <div className="col-span-1 relative">
-                          <span className="text-sm mr-2 absolute top-[14px] left-5 text-cp-dark-gray">
-                            $
-                          </span>
-                          <input
-                            type="number"
-                            defaultValue={reward.pledgeAmount}
-                            min={reward.pledgeAmount}
-                            max={1000}
-                            className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-cp-dark-gray/50 rounded-full text-center"
-                            onInput={(e) => {
-                              const input = e.target as HTMLInputElement;
-                              if (input.value.length > 4) {
-                                input.value = input.value.slice(0, 4); // Limit to 4 digits
-                              }
-                            }}
-                          />
+                          {reward.title === "Pledge with no reward" ? null : (
+                            <>
+                              <span className="text-sm mr-2 absolute top-[14px] left-5 text-cp-dark-gray">
+                                $
+                              </span>
+                              <input
+                                type="number"
+                                defaultValue={reward.pledgeAmount}
+                                min={reward.pledgeAmount}
+                                max={1000}
+                                className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-cp-dark-gray/50 rounded-full text-center"
+                                onInput={(e) => {
+                                  const input = e.target as HTMLInputElement;
+                                  if (input.value.length > 4) {
+                                    input.value = input.value.slice(0, 4); // Limit to 4 digits
+                                  }
+                                }}
+                              />
+                            </>
+                          )}
                         </div>
                         <button
                           onClick={() => setIsThankYouModalActive(true)}
@@ -205,7 +179,7 @@ export default function BackProjectModal({
           </div>
         </article>
       ) : (
-        <SuccessModal
+        <ThankYouModal
           onClose={() => {
             setIsThankYouModalActive(false);
             onClose();

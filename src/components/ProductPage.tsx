@@ -92,8 +92,6 @@ export default function ProductPage({ title }: ProductPageProps) {
               title={project.modal.backThisProjectTitle}
               description={project.modal.backThisProjectDescription}
               rewards={project.rewards}
-              noRewardTitle={project.modal.noRewardTitle}
-              noRewardDescription={project.modal.noRewardDescription}
               selectedReward={selectedReward}
               selectReward={handleSelectReward}
             />
@@ -183,45 +181,48 @@ export default function ProductPage({ title }: ProductPageProps) {
           </section>
         </article>
         <article className="relative px-6 flex flex-col items-center mt-9 gap-y-[25px] pb-20">
-          {project.rewards.map((reward) => (
-            <section
-              className={cn(
-                "w-full border px-6 pt-5 pb-6 border-gray-300 rounded-lg mx-6",
-                reward.isOutOfStock && "opacity-60",
-              )}
-              key={reward.title}
-            >
-              <div className="flex flex-col text-sm">
-                <h3 className="font-bold">{reward.title}</h3>
-                <p className="mt-[6px] font-semi-bold text-cp-moderate-cyan">
-                  Pledge ${reward.pledgeAmount} or more
-                </p>
-              </div>
-              <p className="text-sm mt-[22px] leading-[1.725] text-cp-dark-gray">
-                {reward.description}
-              </p>
-              <div className="flex mt-[26px] flex-col">
-                <h4 className="flex items-center">
-                  <span className="font-bold text-3xl">{reward.left}</span>{" "}
-                  <span className="ml-3 text-cp-dark-gray text-[15px]">
-                    {" "}
-                    left
-                  </span>
-                </h4>
-              </div>
-              <button
-                className={cn(
-                  "bg-cp-moderate-cyan inline-block px-[32px] mt-6 py-[14px] font-semi-bold text-sm text-white rounded-full",
-                  reward.isOutOfStock && "bg-gray-400 cursor-not-allowed",
-                )}
-                disabled={reward.isOutOfStock}
-                // onClick={handleBackProjectModal}
-                onClick={() => handleSelectReward(reward.title)}
-              >
-                Select Reward
-              </button>
-            </section>
-          ))}
+          {project.rewards.map(
+            (reward) =>
+              reward.title !== "Pledge with no reward" && (
+                <section
+                  className={cn(
+                    "w-full border px-6 pt-5 pb-6 border-gray-300 rounded-lg mx-6",
+                    reward.isOutOfStock && "opacity-60",
+                  )}
+                  key={reward.title}
+                >
+                  <div className="flex flex-col text-sm">
+                    <h3 className="font-bold">{reward.title}</h3>
+                    <p className="mt-[6px] font-semi-bold text-cp-moderate-cyan">
+                      Pledge ${reward.pledgeAmount} or more
+                    </p>
+                  </div>
+                  <p className="text-sm mt-[22px] leading-[1.725] text-cp-dark-gray">
+                    {reward.description}
+                  </p>
+                  <div className="flex mt-[26px] flex-col">
+                    <h4 className="flex items-center">
+                      <span className="font-bold text-3xl">{reward.left}</span>{" "}
+                      <span className="ml-3 text-cp-dark-gray text-[15px]">
+                        {" "}
+                        left
+                      </span>
+                    </h4>
+                  </div>
+                  <button
+                    className={cn(
+                      "bg-cp-moderate-cyan inline-block px-[32px] mt-6 py-[14px] font-semi-bold text-sm text-white rounded-full",
+                      reward.isOutOfStock && "bg-gray-400 cursor-not-allowed",
+                    )}
+                    disabled={reward.isOutOfStock}
+                    // onClick={handleBackProjectModal}
+                    onClick={() => handleSelectReward(reward.title)}
+                  >
+                    Select Reward
+                  </button>
+                </section>
+              ),
+          )}
         </article>
         {/* <div className="hidden"> */}
         {/*   <SuccessModal successMessage={project.modal.successMessage} /> */}
