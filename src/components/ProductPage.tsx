@@ -15,7 +15,7 @@ export default function ProductPage({ title }: ProductPageProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [selectedReward, setSelectedReward] = useState<string | null>(null);
   const [isModalBackProjectActive, setIsModalBackProjectActive] =
-    useState(false);
+    useState(true); // TODO: set to false on deploy
   const project = projectDetails.find(
     (project) => project.title?.toLowerCase() === title.toLowerCase(),
   );
@@ -201,7 +201,7 @@ export default function ProductPage({ title }: ProductPageProps) {
             ))}
           </section>
         </article>
-        <article className="relative px-6 flex flex-col items-center mt-9 gap-y-[25px] pb-20 sm:max-w-[700px] sm:mx-auto sm:px-8 sm:gap-y-[20px]">
+        <article className="relative px-6 flex flex-col items-center mt-9 gap-y-[25px] pb-20 sm:max-w-[700px] sm:mx-auto sm:px-8 sm:gap-y-[20px] sm:pb-[172px]">
           {project.rewards.map(
             (reward) =>
               reward.title !== "Pledge with no reward" && (

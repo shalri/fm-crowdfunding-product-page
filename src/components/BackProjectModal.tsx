@@ -44,7 +44,7 @@ export default function BackProjectModal({
   return (
     <div
       className={cn(
-        "fixed px-6 py-[120px] overflow-y-auto inset-0 bg-black/50 z-40 sm:flex items-center transition-all",
+        "fixed px-6 py-[120px] overflow-y-auto inset-0 bg-black/50 z-40 items-center transition-all sm:py-[184px]",
         isThankYouModalActive && "backdrop-blur-[2px] bg-black/30",
       )}
     >
@@ -52,20 +52,22 @@ export default function BackProjectModal({
         <article
           ref={backProjectRef}
           className={cn(
-            "rounded-lg bg-white px-6 flex-grow py-[30px] z-50 max-w-[730px] mx-auto",
+            "rounded-lg bg-white px-6 flex-grow py-[30px] z-50 max-w-[730px] mx-auto sm:px-12 sm:py-12",
             isThankYouConfirmed && "hidden",
           )}
         >
-          <div className="mb-6">
-            <div className="flex justify-between items-baseline">
-              <h2 className="font-bold text-lg text-cp-black">{title}</h2>
+          <div className="mb-6 sm:mb-8">
+            <div className="flex justify-between items-baseline sm:relative">
+              <h2 className="font-bold text-lg text-cp-black sm:text-2xl">
+                {title}
+              </h2>
               <button
                 aria-label="Close Rewards Selection"
-                className="bg-[url(/images/icon-close-modal.svg)] bg-contain bg-no-repeat size-4"
+                className="bg-[url(/images/icon-close-modal.svg)] bg-contain bg-no-repeat size-4 sm:absolute sm:-right-4 sm:-top-4"
                 onClick={onClose}
               ></button>
             </div>
-            <p className="text-sm mt-[22px] leading-[1.725] text-cp-dark-gray">
+            <p className="text-sm mt-[22px] leading-[1.725] text-cp-dark-gray sm:text-base sm:mt-[18px]">
               {description}
             </p>
           </div>
@@ -73,7 +75,7 @@ export default function BackProjectModal({
             {rewards.map((reward) => (
               <motion.label
                 className={cn(
-                  "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative",
+                  "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative sm:pt-8 sm:pb-[30px]",
                   reward.isOutOfStock && "opacity-50",
                   selectedReward === reward.title &&
                     "border-2 border-cp-moderate-cyan",
@@ -102,20 +104,28 @@ export default function BackProjectModal({
                         <div className="w-3 h-3 bg-cp-moderate-cyan rounded-full" />
                       )}
                     </div>
-                    <div className="ml-4">
-                      <h3 className="text-sm font-bold">{reward.title}</h3>
+                    <div className="ml-4 sm:flex sm:ml-7">
+                      <h3 className="text-sm font-bold sm:text-base">
+                        {reward.title}
+                      </h3>
                       {reward.title === "Pledge with no reward" ? null : (
-                        <p className="mt-1 text-cp-moderate-cyan text-sm">
+                        <p className="mt-1 sm:text-base font-semibold sm:ml-4 text-cp-moderate-cyan text-sm sm:mt-0">
                           Pledge ${reward.pledgeAmount} or more
                         </p>
                       )}
                     </div>
                   </div>
-                  <h4 className="text-sm hidden sm:inline-block">
-                    <span className="font-bold">{reward.left}</span> left
-                  </h4>
+                  {reward.title === "Pledge with no reward" ? null : (
+                    <h4 className="mt-0 hidden font-bold text-lg text-cp-black sm:inline-block">
+                      {reward.left}{" "}
+                      <span className="text-[15px] ml-1 font-normal text-cp-dark-gray">
+                        {" "}
+                        left
+                      </span>
+                    </h4>
+                  )}
                 </div>
-                <p className="text-sm mt-6 leading-[1.725] text-cp-dark-gray">
+                <p className="text-sm mt-6 leading-[1.725] text-cp-dark-gray sm:text-base sm:mt-3 sm:leading-[1.750] sm:pl-12">
                   {reward.description}
                 </p>
                 {reward.title === "Pledge with no reward" ? null : (
@@ -141,7 +151,6 @@ export default function BackProjectModal({
                       }}
                       transition={{
                         duration: 0.075,
-                        // ease: [0.04, 0.62, 0.23, 0.98],
                       }}
                       className="grid grid-cols-2 mt-6 pt-6 border-t border-cp-dark-gray/20 overflow-hidden"
                     >
