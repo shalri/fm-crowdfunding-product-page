@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 function Logo() {
   return (
-    <div className="z-50 h-8 w-[130px] font-bold text-4xl relative">
+    <div className="z-50 h-8 w-[130px] font-bold text-4xl relative sm:h-6 sm:mb-[2px]">
       <Link href="/">
         <Image
           src="/images/logo.svg"
@@ -29,12 +29,15 @@ function NavContent({
   handleLinkClink: (e: React.MouseEvent) => void;
 }) {
   return (
-    <ul className="flex flex-col divide-y divide-gray-200 gap-y-[22px]">
+    <ul className="flex flex-col divide-y divide-gray-200 gap-y-[22px] sm:flex-row sm:divide-none sm:gap-x-[1.92rem] sm:gap-y-0">
       {navLinks.map((link) => (
-        <li className="px-6 pt-[20px] last:pb-6" key={link.label}>
+        <li
+          className="px-6 pt-[20px] last:pb-6 sm:px-0 sm:last:pb-0 sm:pt-[18px]"
+          key={link.label}
+        >
           <Link
             href={link.href}
-            className="text-lg font-semi-bold text-cp-black"
+            className="text-lg font-semi-bold text-cp-black sm:text-[0.840rem] sm:text-white"
             onClick={handleLinkClink}
           >
             {link.label}
@@ -112,7 +115,7 @@ export default function Header() {
           />
         )}
       </AnimatePresence>
-      <header className="w-full pt-[26px] absolute px-6 flex items-center justify-between">
+      <header className="w-full pt-[26px] absolute px-6 flex items-center justify-between sm:max-w-[1158px] sm:mx-auto sm:left-[50%] sm:transform sm:-translate-x-1/2  sm:items-end">
         <Logo />
         <nav className="relative" ref={navRef}>
           {isSmallScreen ? (
