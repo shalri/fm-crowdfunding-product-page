@@ -42,7 +42,12 @@ export default function BackProjectModal({
   if (!isActive) return null;
 
   return (
-    <div className="fixed px-6 py-[120px] overflow-y-auto inset-0 bg-black/50 z-40 sm:flex items-center">
+    <div
+      className={cn(
+        "fixed px-6 py-[120px] overflow-y-auto inset-0 bg-black/50 z-40 sm:flex items-center transition-all",
+        isThankYouModalActive && "backdrop-blur-[2px] bg-black/30",
+      )}
+    >
       {!isThankYouModalActive ? (
         <article
           ref={backProjectRef}
@@ -71,7 +76,7 @@ export default function BackProjectModal({
                   "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative",
                   reward.isOutOfStock && "opacity-50",
                   selectedReward === reward.title &&
-                  "border-2 border-cp-moderate-cyan",
+                    "border-2 border-cp-moderate-cyan",
                 )}
                 key={reward.title}
               >
@@ -90,7 +95,7 @@ export default function BackProjectModal({
                       className={cn(
                         "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
                         selectedReward === reward.title &&
-                        "border-cp-moderate-cyan",
+                          "border-cp-moderate-cyan",
                       )}
                     >
                       {selectedReward === reward.title && (
@@ -189,8 +194,8 @@ export default function BackProjectModal({
         <AnimatePresence>
           <motion.div
             key="thankyou-modal"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: "-20%" }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             className="flex-grow items-center justify-center"
           >

@@ -22,7 +22,7 @@ export default function ThankYouModal({
   return (
     <article
       ref={thankYouRef}
-      className="flex flex-col items-center justify-center pt-8 px-6 pb-10 bg-white rounded-xl shadow-3xl self-center mt-6"
+      className="flex flex-col items-center justify-center pt-8 px-6 pb-10 bg-white rounded-xl shadow-3xl self-center mt-6 shadow-cp-black/50 shadow-lg"
     >
       <div className="size-16 bg-[url(/images/icon-check.svg)] bg-contain bg-no-repeat" />
       <h1 className="text-cp-black font-bold text-lg mt-5">

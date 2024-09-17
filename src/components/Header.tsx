@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 function Logo() {
   return (
-    <div className="h-8 w-[130px] font-bold text-4xl relative">
+    <div className="z-50 h-8 w-[130px] font-bold text-4xl relative">
       <Link href="/">
         <Image
           src="/images/logo.svg"
