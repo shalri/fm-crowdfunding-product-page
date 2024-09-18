@@ -4,18 +4,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/libs/utils";
 import { projectDetails } from "@/libs/data";
 import { useEffect, useState } from "react";
-// import { useSmallScreen } from "@/hooks/useSmallScreen";
 
 type ProductPageProps = {
   title: string;
 };
 
 export default function ProductPage({ title }: ProductPageProps) {
-  // const isSmallScreen = useSmallScreen();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [selectedReward, setSelectedReward] = useState<string | null>(null);
   const [isModalBackProjectActive, setIsModalBackProjectActive] =
-    useState(true); // TODO: set to false on deploy
+    useState(false);
   const project = projectDetails.find(
     (project) => project.title?.toLowerCase() === title.toLowerCase(),
   );
@@ -145,14 +143,21 @@ export default function ProductPage({ title }: ProductPageProps) {
                 setIsBookmarked((prev) => !prev);
               }}
             >
-              <div
+              <motion.div
+                animate={{ rotateY: isBookmarked ? 180 : 0 }}
+                transition={{ duration: 0.5 }}
                 className={cn(
                   "bg-[url(/images/icon-bookmark.svg)] size-[3.5rem] bg-no-repeat bg-contain",
                   isBookmarked && "bg-[url(/images/icon-bookmarked.svg)]",
                 )}
               />
-              <span className="hidden font-semibold sm:inline-block sm:pr-6 sm:pl-4 sm:text-base">
-                Bookmark
+              <span
+                className={cn(
+                  "hidden font-semibold sm:inline-block sm:pr-6 sm:pl-4 sm:text-base transition-all duration-300",
+                  isBookmarked && "text-cp-moderate-cyan",
+                )}
+              >
+                {isBookmarked ? "Bookmarked" : "Bookmark"}
               </span>
             </button>
           </div>
@@ -238,7 +243,7 @@ export default function ProductPage({ title }: ProductPageProps) {
                     </div>
                     <button
                       className={cn(
-                        "bg-cp-moderate-cyan inline-block px-[32px] mt-6 py-[14px] font-semi-bold text-sm text-white rounded-full sm:mt-0",
+                        "bg-cp-moderate-cyan inline-block px-[32px] mt-6 py-[14px] font-semi-bold text-sm text-white rounded-full sm:mt-0 hover:bg-cp-dark-cyan transition-all duration-300",
                         reward.isOutOfStock && "bg-gray-400 cursor-not-allowed",
                       )}
                       disabled={reward.isOutOfStock}

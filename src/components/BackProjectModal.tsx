@@ -78,7 +78,7 @@ export default function BackProjectModal({
                   "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative sm:pt-8 sm:pb-[30px]",
                   reward.isOutOfStock && "opacity-50",
                   selectedReward === reward.title &&
-                    "border-2 border-cp-moderate-cyan",
+                  "border-2 border-cp-moderate-cyan",
                 )}
                 key={reward.title}
               >
@@ -97,7 +97,7 @@ export default function BackProjectModal({
                       className={cn(
                         "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
                         selectedReward === reward.title &&
-                          "border-cp-moderate-cyan transition-all duration-300",
+                        "border-cp-moderate-cyan transition-all duration-300",
                       )}
                     >
                       {selectedReward === reward.title && (
@@ -187,7 +187,7 @@ export default function BackProjectModal({
                             setIsThankYouModalActive(true);
                             setIsThankYouConfirmed(true);
                           }}
-                          className="col-span-1 bg-cp-moderate-cyan text-white px-6 py-[14px] rounded-full text-sm"
+                          className="col-span-1 bg-cp-moderate-cyan text-white px-6 py-[14px] rounded-full text-sm transition-all duration-300 hover:bg-cp-dark-cyan"
                         >
                           Continue
                         </button>

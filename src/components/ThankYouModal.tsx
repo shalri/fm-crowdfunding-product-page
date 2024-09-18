@@ -33,7 +33,7 @@ export default function ThankYouModal({
       </p>
       <button
         onClick={onClose}
-        className="mt-[30px] font-semibold text-white py-[14px] rounded-full px-8 text-sm bg-cp-moderate-cyan sm:mt-[32px]"
+        className="hover:bg-cp-dark-cyan transition-all duration-300 mt-[30px] font-semibold text-white py-[14px] rounded-full px-8 text-sm bg-cp-moderate-cyan sm:mt-[32px]"
       >
         Got it!
       </button>
