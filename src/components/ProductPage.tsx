@@ -4,14 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/libs/utils";
 import { projectDetails } from "@/libs/data";
 import { useEffect, useState } from "react";
-import { useSmallScreen } from "@/hooks/useSmallScreen";
+// import { useSmallScreen } from "@/hooks/useSmallScreen";
 
 type ProductPageProps = {
   title: string;
 };
 
 export default function ProductPage({ title }: ProductPageProps) {
-  const isSmallScreen = useSmallScreen();
+  // const isSmallScreen = useSmallScreen();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [selectedReward, setSelectedReward] = useState<string | null>(null);
   const [isModalBackProjectActive, setIsModalBackProjectActive] =
@@ -104,6 +104,7 @@ export default function ProductPage({ title }: ProductPageProps) {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* Doesn't work well with Vercel deployemnt */}
       {/* <main */}
       {/*   className={cn( */}
       {/*     "flex flex-col items-center sm:items-start", */}
@@ -121,6 +122,7 @@ export default function ProductPage({ title }: ProductPageProps) {
           "bg-top bg-no-repeat bg-contain pt-[244px] px-6 sm:pt-[308px]",
           "bg-[image:var(--bg-image-mobile)]",
           "sm:bg-[image:var(--bg-image-desktop)]",
+          // "bg-[url('/images/image-hero-mobile.jpg)'] sm:bg-[url('/images/image-hero-desktop.jpg')]",
         )}
         style={
           {
