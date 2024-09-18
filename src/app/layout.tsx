@@ -9,8 +9,9 @@ const commissioner = Commissioner({
 });
 
 export const metadata: Metadata = {
-  title: "きそ(kiso) | FScode",
-  description: "A basic NextJS template for Frontend Mentor Challenges",
+  title: "Crowdfunding Prouduct Page | FScode",
+  description:
+    "Solution for Crowdfuning Product Page challenge from Frontend Mentor",
 };
 
 export default function RootLayout({
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${commissioner.className} flex min-h-screen flex-col antialiased scroll-smooth`}
+        className={`${commissioner.className} flex min-h-screen flex-col antialiased scroll-smooth relative`}
       >
         <Header />
         {children}

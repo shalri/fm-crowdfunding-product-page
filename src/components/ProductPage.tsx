@@ -116,7 +116,7 @@ export default function ProductPage({ title }: ProductPageProps) {
           } as React.CSSProperties
         }
       >
-        <article className="sm:max-w-[730px] sm:mx-auto bg-white/10 rounded-lg px-6 backdrop-blur-lg sm:px-12">
+        <article className="sm:max-w-[730px] sm:mx-auto bg-white rounded-lg px-6 sm:px-12">
           <div className="flex w-full justify-center -mt-7 h-14 ">
             <div
               className="size-14 bg-contain bg-no-repeat"

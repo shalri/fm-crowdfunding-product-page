@@ -51,7 +51,7 @@ export default function BackProjectModal({
   return (
     <div
       className={cn(
-        "fixed px-6 py-[120px] overflow-y-auto inset-0 bg-black/50 z-40 items-center transition-all sm:py-[184px]",
+        "fixed px-6 py-[120px] overflow-y-scroll inset-0 bg-black/50 z-40 items-center transition-all sm:py-[184px]",
         isThankYouModalActive && "backdrop-blur-[2px] bg-black/30",
       )}
     >
@@ -148,7 +148,6 @@ export default function BackProjectModal({
                   {selectedReward === reward.title && (
                     <motion.div
                       layout
-                      // key={reward.title}
                       initial="collapse"
                       animate="open"
                       exit="collapse"
@@ -183,12 +182,12 @@ export default function BackProjectModal({
                                 type="number"
                                 defaultValue={reward.pledgeAmount}
                                 min={reward.pledgeAmount}
-                                max={1000}
+                                max={9999}
                                 className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-gray-300 rounded-full text-center hover:border-cp-moderate-cyan focus:border-cp-dark-cyan transition-all duration-300 active:border-cp-dark-cyan focus:outline-none"
                                 onInput={(e) => {
                                   const input = e.target as HTMLInputElement;
                                   if (input.value.length > 4) {
-                                    input.value = input.value.slice(0, 4); // Limit to 4 digits
+                                    input.value = input.value.slice(0, 4);
                                   }
                                 }}
                               />
