@@ -104,15 +104,29 @@ export default function ProductPage({ title }: ProductPageProps) {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* <main */}
+      {/*   className={cn( */}
+      {/*     "flex flex-col items-center sm:items-start", */}
+      {/*     "bg-top bg-no-repeat bg-contain pt-[244px] px-6 sm:pt-[308px]", */}
+      {/*   )} */}
+      {/*   style={ */}
+      {/*     isSmallScreen */}
+      {/*       ? { backgroundImage: `url(${project.bgImage.mobile})` } */}
+      {/*       : { backgroundImage: `url(${project.bgImage.desktop})` } */}
+      {/*   } */}
+      {/* > */}
       <main
         className={cn(
           "flex flex-col items-center sm:items-start",
           "bg-top bg-no-repeat bg-contain pt-[244px] px-6 sm:pt-[308px]",
+          "bg-[image:var(--bg-image-mobile)]",
+          "sm:bg-[image:var(--bg-image-desktop)]",
         )}
         style={
-          isSmallScreen
-            ? { backgroundImage: `url(${project.bgImage.mobile})` }
-            : { backgroundImage: `url(${project.bgImage.desktop})` }
+          {
+            "--bg-image-mobile": `url(${project.bgImage.mobile})`,
+            "--bg-image-desktop": `url(${project.bgImage.desktop})`,
+          } as React.CSSProperties
         }
       >
         <article className="sm:max-w-[730px] sm:mx-auto bg-white/10 rounded-lg px-6 backdrop-blur-lg sm:px-12">
