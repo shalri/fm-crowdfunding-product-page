@@ -1,7 +1,7 @@
 import useOutSideClick from "@/hooks/useOutsideClick";
 import { cn } from "@/libs/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ThankYouModal from "./ThankYouModal";
 
 interface Reward {
@@ -34,6 +34,13 @@ export default function BackProjectModal({
   const [isThankYouModalActive, setIsThankYouModalActive] = useState(false);
   const [isThankYouConfirmed, setIsThankYouConfirmed] = useState(false);
   const backProjectRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (isActive && buttonRef.current) {
+      buttonRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [isActive]);
 
   useOutSideClick(backProjectRef, () => {
     onClose();
@@ -78,7 +85,7 @@ export default function BackProjectModal({
                   "block rounded-lg border-2 border-cp-dark-gray/50 px-6 pt-5 pb-7 relative sm:pt-8 sm:pb-[30px]",
                   reward.isOutOfStock && "opacity-50",
                   selectedReward === reward.title &&
-                  "border-2 border-cp-moderate-cyan",
+                    "border-2 border-cp-moderate-cyan",
                 )}
                 key={reward.title}
               >
@@ -97,7 +104,7 @@ export default function BackProjectModal({
                       className={cn(
                         "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
                         selectedReward === reward.title &&
-                        "border-cp-moderate-cyan transition-all duration-300",
+                          "border-cp-moderate-cyan transition-all duration-300",
                       )}
                     >
                       {selectedReward === reward.title && (
@@ -159,8 +166,14 @@ export default function BackProjectModal({
                           Enter your pledge
                         </p>
                       )}
-                      <div className="grid grid-cols-2 col-span-2 row-start-2 sm:col-span-1 sm:row-start-1">
-                        <div className="col-span-1 relative">
+                      <div
+                        className={cn(
+                          "grid grid-cols-2 col-span-2 row-start-2 sm:col-span-1 sm:row-start-1",
+                          reward.title === "Pledge with no reward" &&
+                            "sm:col-start-2",
+                        )}
+                      >
+                        <div className={cn("col-span-1 relative")}>
                           {reward.title === "Pledge with no reward" ? null : (
                             <>
                               <span className="text-sm mr-2 absolute top-[14px] left-5 text-cp-dark-gray">
@@ -183,6 +196,7 @@ export default function BackProjectModal({
                           )}
                         </div>
                         <button
+                          ref={buttonRef}
                           onClick={() => {
                             setIsThankYouModalActive(true);
                             setIsThankYouConfirmed(true);
