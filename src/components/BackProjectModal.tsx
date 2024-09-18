@@ -97,11 +97,11 @@ export default function BackProjectModal({
                       className={cn(
                         "w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center",
                         selectedReward === reward.title &&
-                          "border-cp-moderate-cyan",
+                          "border-cp-moderate-cyan transition-all duration-300",
                       )}
                     >
                       {selectedReward === reward.title && (
-                        <div className="w-3 h-3 bg-cp-moderate-cyan rounded-full" />
+                        <div className="w-3 h-3 bg-cp-moderate-cyan rounded-full transition-all duration-300" />
                       )}
                     </div>
                     <div className="ml-4 sm:flex sm:ml-7">
@@ -152,14 +152,14 @@ export default function BackProjectModal({
                       transition={{
                         duration: 0.075,
                       }}
-                      className="grid grid-cols-2 mt-6 pt-6 border-t border-cp-dark-gray/20 overflow-hidden"
+                      className="grid grid-cols-2 mt-6 pt-6 border-t border-cp-dark-gray/20 overflow-hidden sm:items-baseline"
                     >
                       {reward.title === "Pledge with no reward" ? null : (
-                        <p className="cols-start-1 pb-4 text-sm text-cp-dark-gray w-full text-center row-start-1 col-span-2">
+                        <p className="cols-start-1 pb-4 text-sm text-cp-dark-gray w-full text-center row-start-1 col-span-2 sm:col-span-1 sm:text-left sm:text-[16px]">
                           Enter your pledge
                         </p>
                       )}
-                      <div className="grid grid-cols-2 col-span-2 row-start-2">
+                      <div className="grid grid-cols-2 col-span-2 row-start-2 sm:col-span-1 sm:row-start-1">
                         <div className="col-span-1 relative">
                           {reward.title === "Pledge with no reward" ? null : (
                             <>
@@ -171,7 +171,7 @@ export default function BackProjectModal({
                                 defaultValue={reward.pledgeAmount}
                                 min={reward.pledgeAmount}
                                 max={1000}
-                                className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-cp-dark-gray/50 rounded-full text-center"
+                                className="w-[80%] pl-3 pr-3 py-[12px] font-bold text-[15px] border border-gray-300 rounded-full text-center hover:border-cp-moderate-cyan focus:border-cp-dark-cyan transition-all duration-300 active:border-cp-dark-cyan focus:outline-none"
                                 onInput={(e) => {
                                   const input = e.target as HTMLInputElement;
                                   if (input.value.length > 4) {

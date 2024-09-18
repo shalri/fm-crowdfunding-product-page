@@ -104,25 +104,12 @@ export default function ProductPage({ title }: ProductPageProps) {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* Doesn't work well with Vercel deployemnt */}
-      {/* <main */}
-      {/*   className={cn( */}
-      {/*     "flex flex-col items-center sm:items-start", */}
-      {/*     "bg-top bg-no-repeat bg-contain pt-[244px] px-6 sm:pt-[308px]", */}
-      {/*   )} */}
-      {/*   style={ */}
-      {/*     isSmallScreen */}
-      {/*       ? { backgroundImage: `url(${project.bgImage.mobile})` } */}
-      {/*       : { backgroundImage: `url(${project.bgImage.desktop})` } */}
-      {/*   } */}
-      {/* > */}
       <main
         className={cn(
           "flex flex-col items-center sm:items-start",
           "bg-top bg-no-repeat bg-contain pt-[244px] px-6 sm:pt-[308px]",
           "bg-[image:var(--bg-image-mobile)]",
           "sm:bg-[image:var(--bg-image-desktop)]",
-          // "bg-[url('/images/image-hero-mobile.jpg)'] sm:bg-[url('/images/image-hero-desktop.jpg')]",
         )}
         style={
           {
