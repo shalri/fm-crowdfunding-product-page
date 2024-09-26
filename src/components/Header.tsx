@@ -4,7 +4,7 @@ import Link from "next/link";
 import { navLinks } from "@/libs/data";
 import { useMobileNav } from "@/hooks/useMobileNavigation";
 import { useSmallScreen } from "@/hooks/useSmallScreen";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/libs/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -68,6 +68,7 @@ function MenuButton({
 }
 
 export default function Header() {
+  const [mounted, setMounted] = useState(false);
   const isSmallScreen = useSmallScreen();
   const navRef = useRef<HTMLDivElement>(null);
   const { isMobileNavActive, toggleMobileNav, closeMobileNav } = useMobileNav(
@@ -102,6 +103,10 @@ export default function Header() {
     }
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <>
       <AnimatePresence>
@@ -117,15 +122,17 @@ export default function Header() {
       </AnimatePresence>
       <header className="w-full pt-[26px] absolute px-6 flex items-center justify-between sm:max-w-[1158px] sm:mx-auto sm:left-[50%] sm:transform sm:-translate-x-1/2  sm:items-end">
         <Logo />
-        <nav className="relative" ref={navRef}>
-          {isSmallScreen ? (
-            mobileAnimationWrapper(
-              <NavContent handleLinkClink={handleLinkClink} />,
-            )
-          ) : (
-            <NavContent handleLinkClink={handleLinkClink} />
-          )}
-        </nav>
+        {mounted && (
+          <nav className="relative" ref={navRef}>
+            {isSmallScreen ? (
+              mobileAnimationWrapper(
+                <NavContent handleLinkClink={handleLinkClink} />,
+              )
+            ) : (
+              <NavContent handleLinkClink={handleLinkClink} />
+            )}
+          </nav>
+        )}
         <MenuButton
           isMobileNavActive={isMobileNavActive}
           toggleMobileNav={toggleMobileNav}
